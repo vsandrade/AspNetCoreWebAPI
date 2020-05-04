@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.Data;
+using SmartSchool.WebAPI.Dtos;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Controllers
@@ -11,72 +14,87 @@ namespace SmartSchool.WebAPI.Controllers
     public class ProfessorController : ControllerBase
     {
         private readonly IRepository _repo;
-        public ProfessorController(IRepository repo)
+        private readonly IMapper _mapper;
+        public ProfessorController(IRepository repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
-
 
         [HttpGet]
         public IActionResult Get()
         {
-            var result = _repo.GetAllProfessores(true);
-            return Ok(result);
+            var Professor = _repo.GetAllProfessores(true);
+            return Ok(_mapper.Map<IEnumerable<ProfessorDto>>(Professor));
+        }
+
+        [HttpGet("getRegister")]
+        public IActionResult GetRegister()
+        {
+            return Ok(new ProfessorRegistrarDto());
         }
 
         // api/Professor
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var aluno = _repo.GetProfessorById(id, false);
-            if (aluno == null) return BadRequest("O Aluno não foi encontrado");
+            var Professor = _repo.GetProfessorById(id, false);
+            if (Professor == null) return BadRequest("O Professor não foi encontrado");
 
-            return Ok(aluno);
+            var professorDto = _mapper.Map<ProfessorDto>(Professor);
+
+            return Ok(Professor);
         }
 
         // api/Professor
         [HttpPost]
-        public IActionResult Post(Professor professor)
+        public IActionResult Post(ProfessorRegistrarDto model)
         {
-            _repo.Add(professor);
+            var prof = _mapper.Map<Professor>(model);
+
+            _repo.Add(prof);
             if (_repo.SaveChanges())
             {
-                return Ok(professor);
+                return Created($"/api/professor/{model.Id}", _mapper.Map<ProfessorDto>(prof));
             }
 
-            return BadRequest("Professor não cadastrado");   
+            return BadRequest("Professor não cadastrado");
         }
 
         // api/Professor
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Professor professor)
+        public IActionResult Put(int id, ProfessorRegistrarDto model)
         {
             var prof = _repo.GetProfessorById(id, false);
             if (prof == null) return BadRequest("Professor não encontrado");
 
-            _repo.Update(professor);
+            _mapper.Map(model, prof);
+
+            _repo.Update(prof);
             if (_repo.SaveChanges())
             {
-                return Ok(professor);
+                return Created($"/api/professor/{model.Id}", _mapper.Map<ProfessorDto>(prof));
             }
 
-            return BadRequest("Professor não Atualizado");  
+            return BadRequest("Professor não Atualizado");
         }
 
         // api/Professor
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, Professor professor)
+        public IActionResult Patch(int id, ProfessorRegistrarDto model)
         {
             var prof = _repo.GetProfessorById(id, false);
             if (prof == null) return BadRequest("Professor não encontrado");
 
-            _repo.Update(professor);
+            _mapper.Map(model, prof);
+
+            _repo.Update(prof);
             if (_repo.SaveChanges())
             {
-                return Ok(professor);
+                return Created($"/api/professor/{model.Id}", _mapper.Map<ProfessorDto>(prof));
             }
 
-            return BadRequest("Professor não Atualizado");  
+            return BadRequest("Professor não Atualizado");
         }
 
         [HttpDelete("{id}")]
@@ -91,7 +109,7 @@ namespace SmartSchool.WebAPI.Controllers
                 return Ok("professor deletado");
             }
 
-            return BadRequest("professor não deletado");  
+            return BadRequest("professor não deletado");
         }
     }
 }
