@@ -38,8 +38,8 @@ namespace SmartSchool.WebAPI.V2.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var alunos = _repo.GetAllAlunos(true);            
-            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
+            // var alunos = _repo.GetAllAlunos(true);            
+            return Ok(); //_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
         /// <summary>
