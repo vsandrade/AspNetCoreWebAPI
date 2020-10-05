@@ -1,0 +1,41 @@
+version: "3.8"
+
+volumes: 
+    SmartSchoolDb:
+
+networks: 
+    mysqlNET:
+    smartschoolNET:
+
+services: 
+
+    mysql:
+        image: "mysql:5.7"
+        container_name: mysql
+        ports: 
+            - "3306:3306"
+        volumes: 
+            - SmartSchoolDb:/var/lib/mysql
+        networks: 
+            - mysqlNET
+        environment: 
+            - MYSQL_USER=root 
+            - MYSQL_PASSWORD=lalaland 
+            - MYSQL_ROOT_PASSWORD=lalaland 
+            - MYSQL_ROOT_HOST=%
+            - bind-address:0.0.0.0 
+    
+    smartschool:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: smartschool
+        networks: 
+            - mysqlNET
+            - smartschoolNET
+        ports: 
+            - 5000:80
+        environment: 
+            - DBHOST=mysql
+        depends_on: 
+            - mysql
