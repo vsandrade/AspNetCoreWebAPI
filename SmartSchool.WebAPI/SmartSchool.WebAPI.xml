@@ -22,6 +22,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetByDisciplinaId(System.Int32)">
+            <summary>
+            Método responsável por retonar apenas um único AlunoDTO.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetRegister">
             <summary>
             Método responsável por retonar apenas um único AlunoDTO.
@@ -47,22 +53,27 @@
         </member>
         <member name="P:SmartSchool.WebAPI.V1.Dtos.AlunoDto.Matricula">
             <summary>
-            Chave do Aluno, para outros neg�cios na Institui��o
+            Chave do Aluno, para outros negócios na Instituição
             </summary>
         </member>
         <member name="P:SmartSchool.WebAPI.V1.Dtos.AlunoDto.Nome">
             <summary>
-            Nome � o Primeiro nome o o Sobrenome do Aluno
+            Nome e o Primeiro nome o o Sobrenome do Aluno
             </summary>
         </member>
         <member name="P:SmartSchool.WebAPI.V1.Dtos.AlunoDto.Idade">
             <summary>
-            Esta idade � o calculo relacionado a data de nascimento do Aluno
+            Esta idade é o calculo relacionado a data de nascimento do Aluno
             </summary>
         </member>
         <member name="P:SmartSchool.WebAPI.V1.Dtos.AlunoDto.Ativo">
             <summary>
-            Ativar ou n�o o Aluno
+            Ativar ou não o Aluno
+            </summary>
+        </member>
+        <member name="T:SmartSchool.WebAPI.V1.Dtos.AlunoPatchDto">
+            <summary>
+            Este � o DTO de Aluno para Registrar.
             </summary>
         </member>
         <member name="T:SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto">

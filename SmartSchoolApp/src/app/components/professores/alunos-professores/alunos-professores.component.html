@@ -1,0 +1,20 @@
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Visualizar</th>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Sobrenome</th>
+      <th scope="col">telefone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let aluno of alunos">
+      <td><button (click)="alunoSelect(aluno.id)" class="text-dark btn btn-sm btn-outline-warning">Detalhe</button></td>
+      <td scope="row">{{aluno.id}}</td>
+      <td>{{aluno.nome}}</td>
+      <td>{{aluno.sobrenome}}</td>
+      <td>{{aluno.telefone}}</td>
+    </tr>
+  </tbody>
+</table>

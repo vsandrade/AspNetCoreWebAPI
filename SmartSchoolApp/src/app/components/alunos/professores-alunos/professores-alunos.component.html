@@ -1,0 +1,20 @@
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th> Visualizar</th>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Disciplina</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prof of professores">
+      <td>
+        <button (click)="professorSelect(prof)" class="text-dark btn btn-sm btn-outline-warning">Detalhe</button>
+      </td>
+      <th scope="row">{{prof.id}}</th>
+      <td>{{prof.nome}}</td>
+      <td>{{disciplinaConcat(prof.disciplinas)}}</td>
+    </tr>
+  </tbody>
+</table>
