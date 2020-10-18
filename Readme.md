@@ -22,7 +22,7 @@ If you want to see this link course, really in action [original site](https://ww
 ## Basic Setup
 
 1. [Install Node.js](https://nodejs.org/)
-1. [Install .NET Core 2.2](https://dotnet.microsoft.com/download/)
+1. [Install .NET Core 3.1](https://dotnet.microsoft.com/download/)
 2. Fork the [AspNetCoreWebAPI](https://github.com/vsandrade/AspNetCoreWebAPI/fork)
 3. Clone the repo you just forked.
 
